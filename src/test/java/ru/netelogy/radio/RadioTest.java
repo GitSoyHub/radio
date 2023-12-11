@@ -88,7 +88,7 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
-
+// ////////////////////////////////////////////////////////////
     @Test
     public void shouldSetVolume() {
         Radio radio = new Radio();
@@ -126,7 +126,7 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetlouderVolume () {  // Volume louder громче
+    public void shouldSetLouderVolume () {  // Volume louder громче
         Radio radio = new Radio();
 
         radio.setCurrentVolume(51);
@@ -136,6 +136,7 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
 
     @Test
     public void shouldSetQuietVolume() {  //  quiet  Volume   тише
@@ -147,6 +148,7 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
 
     @Test
     public  void ShouldNotSetVolumeAboveMax() {  // louder  Volume громче макс
@@ -169,4 +171,82 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    // гр.зн.
+
+
+    @Test // -1 похожий тест - не выставлять меньше минимального
+    public void shouldNotSetFirstLeftBorderVolumeValue() {      // не должен устанавливать первое левое граничное значение громкости
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(-1);
+
+        int expected = 0;                          // не должна переключиться
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // 0 - но этот тест уже есть как минимум
+    public void shouldSetSecondLeftBorderVolumeValue() {    // должен устанавливать второе левое граничное значение громкости
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(0);
+
+        int expected = 0;
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // 1
+    public void shouldSetThirdLeftBorderVolumeValue() {  //  должен устанавливать третье левое граничное значение громкости
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(1);
+
+        int expected = 1;
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // 99
+    public void shouldSetFirstRightBorderVolumeValue() {  //  должен устанавливать первое правое граничное значение громкости
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(99);
+
+        int expected = 99;
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // 100 - есть как максимум
+    public void shouldSetSecondRightBorderVolumeValue() {  //  должен устанавливать второе правое граничное значение громкости
+
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(100);
+
+        int expected = 100;
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test // 101 похожий тест есть - не выставлять больше максимума
+    public void shouldNotSetThirdRightBorderVolumeValue() {  //  не должен устанавливать третье правое граничное значение громкости
+        Radio radio = new Radio();
+
+        radio.setCurrentNumber(101);
+
+        int expected = 0;               // не должна меняться                ?
+        int actual = radio.getCurrentNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+
 }
